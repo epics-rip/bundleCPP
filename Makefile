@@ -10,7 +10,6 @@ MODULES += normativeTypesCPP
 MODULES += pvAccessCPP
 MODULES += pvaClientCPP
 MODULES += pvaSrv
-MODULES += pvaPy
 MODULES += pvDatabaseCPP
 MODULES += exampleCPP
 
@@ -28,9 +27,6 @@ normativeTypesCPP_DEPENDS_ON = pvDataCPP
     pvaSrv_CONTAINS_TOPS := testTop exampleTop
 exampleCPP_CONTAINS_TOPS := database exampleClient exampleLink powerSupply
 exampleCPP_CONTAINS_TOPS += helloPutGet helloRPC pvDatabaseRPC arrayPerformance
-
-# Make actions for which dependencies matter
-ACTIONS = build host
 
 # Build tools
 PERL = perl
@@ -56,10 +52,10 @@ endif
 
 # Internal build targets
 BUILD_TARGETS = $(MODULES:%=build.%)
-HOST_TARGETS = $(MODULES:%=host.%)
+HOST_TARGETS = $(MODULES:%=host.%) host.pvaPy
 TEST_TARGETS = $(MODULES:%=test.%)
-CLEAN_TARGETS = $(MODULES:%=clean.%)
-DISTCLEAN_TARGETS = $(MODULES:%=distclean.%)
+CLEAN_TARGETS = $(MODULES:%=clean.%) clean.pvaPy
+DISTCLEAN_TARGETS = $(MODULES:%=distclean.%) distclean.pvaPy
 CLEAN_DEP = $(filter clean distclean,$(MAKECMDGOALS))
 CONFIG_TARGETS = $(MODULES:%=config.%) $(foreach module, $(MODULES), \
     $(foreach top, $($(module)_CONTAINS_TOPS), config.$(module)/$(top)))
@@ -69,22 +65,23 @@ DECONF_TARGETS = $(MODULES:%=deconf.%) $(foreach module, $(MODULES), \
 # Public build targets
 all: $(BUILD_TARGETS)
 host: $(HOST_TARGETS)
+python pvaPy: host.pvaPy
 test: $(TEST_TARGETS)
 clean: $(CLEAN_TARGETS)
 distclean: $(DISTCLEAN_TARGETS) deconf
 rebuild: clean
 	$(MAKE) all
 config: $(CONFIG_TARGETS)
-deconf: $(DECONF_TARGETS)
+deconf: $(DECONF_TARGETS) deconf.pvaPy
 	$(RM) $(RELEASE)
 
 # Generic build rules
 $(MODULES): % : build.%
 
-$(BUILD_TARGETS): build.% : $(CLEAN_DEP) config.%
+$(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* all
 
-$(HOST_TARGETS): host.% : $(CLEAN_DEP) config.%
+$(HOST_TARGETS): host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
 
 $(TEST_TARGETS): test.% :
@@ -105,20 +102,20 @@ $(foreach module, $(MODULES), $(foreach top, $($(module)_CONTAINS_TOPS), \
     $(eval $(module)/$(top)_DEPENDS_ALL = $(module) $($(module)_DEPENDS_ALL))))
 
 # Special rules for pvaPy
-config.pvaPy: pvaPy/configure/RELEASE.local
-pvaPy/configure/RELEASE.local:
+host.pvaPy: pvaPy/configure/RELEASE.local
+pvaPy/configure/RELEASE.local: host.pvaClientCPP
 	$(MAKE) -C pvaPy configure EPICS_BASE=$(EPICS_BASE) EPICS4_DIR=$(abspath .)
-	@echo CROSS_COMPILER_TARGET_ARCHS= >> pvaPy/configure/CONFIG_SITE.local
+#	@echo CROSS_COMPILER_TARGET_ARCHS= >> pvaPy/configure/CONFIG_SITE.local
 deconf.pvaPy:
 	$(RM) pvaPy/configure/RELEASE.local pvaPy/configure/CONFIG_SITE.local
 
 # Generic config rules
-$(filter-out config.pvaPy, $(CONFIG_TARGETS)): config.% : %/configure/$(RELEASE)
+$(CONFIG_TARGETS): config.% : %/configure/$(RELEASE)
 %/configure/$(RELEASE): | $(RELEASE)
 	$(PERL) tools/genRelease.pl -o $@ -B $(EPICS_BASE) $($*_DEPENDS_ALL)
 $(RELEASE):
 	$(PERL) tools/genRelease.pl -o $@ -B $(EPICS_BASE)
-$(filter-out deconf.pvaPy, $(DECONF_TARGETS)): deconf.% :
+$(DECONF_TARGETS): deconf.% :
 	$(RM) $*/configure/$(RELEASE)
 
 # Module build dependencies
@@ -126,11 +123,14 @@ define MODULE_DEPS_template
   $(1).$(2): $$(foreach dep, $$($(2)_DEPENDS_ON), \
       $$(addprefix $(1).,$$(dep))) $(2)/configure/$(RELEASE)
 endef
-$(foreach action, $(ACTIONS), \
-  $(foreach module, $(MODULES), \
-    $(eval $(call MODULE_DEPS_template,$(action),$(module)))))
+# Dependencies for build.%
+$(foreach module, $(MODULES), \
+    $(eval $(call MODULE_DEPS_template,build,$(module))))
+# Dependencies for host.%
+$(foreach module, $(MODULES) pvaPy, \
+    $(eval $(call MODULE_DEPS_template,host,$(module))))
 
 # GNUmake hints
-.PHONY: all host test clean distclean rebuild config deconf
+.PHONY: all host python pvaPy test clean distclean rebuild config deconf
 .PHONY: $(BUILD_TARGETS) $(HOST_TARGETS) $(TEST_TARGETS) $(CLEAN_TARGETS)
-.PHONY: $(DISTCLEAN_TARGETS) $(CONFIG_TARGETS) $(DECONF_TARGETS)
+.PHONY: $(DISTCLEAN_TARGETS) $(MODULES) $(CONFIG_TARGETS) $(DECONF_TARGETS)
