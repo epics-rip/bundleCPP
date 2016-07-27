@@ -3,7 +3,7 @@
 
 # Build the EPICS V4 Bundle out of Submodules
 
-# These are our submodules
+# These are our main submodules
 MODULES += pvCommonCPP
 MODULES += pvDataCPP
 MODULES += normativeTypesCPP
@@ -12,6 +12,7 @@ MODULES += pvaClientCPP
 MODULES += pvaSrv
 MODULES += pvDatabaseCPP
 MODULES += exampleCPP
+# pvaPy must not appear in MODULES, it's special
 
 # Dependencies between modules, also used for RELEASE files
         pvDataCPP_DEPENDS_ON = pvCommonCPP
@@ -53,7 +54,8 @@ endif
 # Internal build targets
 BUILD_TARGETS = $(MODULES:%=build.%)
 HOST_TARGETS = $(MODULES:%=host.%) host.pvaPy
-TEST_TARGETS = $(MODULES:%=test.%)
+RUNTESTS_TARGETS = $(MODULES:%=runtests.%)
+TAPFILES_TARGETS = $(MODULES:%=tapfiles.%)
 CLEAN_TARGETS = $(MODULES:%=clean.%) clean.pvaPy
 DISTCLEAN_TARGETS = $(MODULES:%=distclean.%) distclean.pvaPy
 CLEAN_DEP = $(filter clean distclean,$(MAKECMDGOALS))
@@ -66,7 +68,8 @@ DECONF_TARGETS = $(MODULES:%=deconf.%) $(foreach module, $(MODULES), \
 all: $(BUILD_TARGETS)
 host: $(HOST_TARGETS)
 python pvaPy: host.pvaPy
-test: $(TEST_TARGETS)
+runtests: $(RUNTESTS_TARGETS)
+tapfiles: $(TAPFILES_TARGETS)
 clean: $(CLEAN_TARGETS)
 distclean: $(DISTCLEAN_TARGETS) deconf
 rebuild: clean
@@ -84,8 +87,11 @@ $(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 $(HOST_TARGETS): host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
 
-$(TEST_TARGETS): test.% :
+$(RUNTESTS_TARGETS): runtests.% :
 	$(MAKE) -C $* runtests CROSS_COMPILER_TARGET_ARCHS=
+
+$(TAPFILES_TARGETS): tapfiles.% :
+	$(MAKE) -C $* tapfiles CROSS_COMPILER_TARGET_ARCHS=
 
 $(CLEAN_TARGETS): clean.% :
 	$(MAKE) -C $* clean
@@ -101,11 +107,17 @@ $(foreach module, $(MODULES), $(eval $(module)_DEPENDS_ALL = \
 $(foreach module, $(MODULES), $(foreach top, $($(module)_CONTAINS_TOPS), \
     $(eval $(module)/$(top)_DEPENDS_ALL = $(module) $($(module)_DEPENDS_ALL))))
 
+# pvaPy configuration settings
+PVAPY_CONFIG := EPICS_BASE=$(EPICS_BASE)
+PVAPY_CONFIG += EPICS4_DIR=$(abspath .)
+ifneq ($(wildcard $(BOOST_NUMPY)),)
+  PVAPY_CONFIG += BOOST_NUM_PY_DIR=$(BOOST_NUMPY)
+endif
+
 # Special rules for pvaPy
 host.pvaPy: pvaPy/configure/RELEASE.local
 pvaPy/configure/RELEASE.local: host.pvaClientCPP
-	$(MAKE) -C pvaPy configure EPICS_BASE=$(EPICS_BASE) EPICS4_DIR=$(abspath .)
-#	@echo CROSS_COMPILER_TARGET_ARCHS= >> pvaPy/configure/CONFIG_SITE.local
+	$(MAKE) -C pvaPy configure $(PVAPY_CONFIG)
 deconf.pvaPy:
 	$(RM) pvaPy/configure/RELEASE.local pvaPy/configure/CONFIG_SITE.local
 
@@ -131,6 +143,7 @@ $(foreach module, $(MODULES) pvaPy, \
     $(eval $(call MODULE_DEPS_template,host,$(module))))
 
 # GNUmake hints
-.PHONY: all host python pvaPy test clean distclean rebuild config deconf
-.PHONY: $(BUILD_TARGETS) $(HOST_TARGETS) $(TEST_TARGETS) $(CLEAN_TARGETS)
-.PHONY: $(DISTCLEAN_TARGETS) $(MODULES) $(CONFIG_TARGETS) $(DECONF_TARGETS)
+.PHONY: all host python runtests tapfiles clean distclean rebuild config deconf
+.PHONY: $(BUILD_TARGETS) $(HOST_TARGETS) $(RUNTESTS_TARGETS) $(TAPFILES_TARGETS)
+.PHONY: $(CLEAN_TARGETS) $(DISTCLEAN_TARGETS)
+.PHONY: $(MODULES) pvaPy $(CONFIG_TARGETS) $(DECONF_TARGETS)
