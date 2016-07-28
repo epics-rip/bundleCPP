@@ -1,7 +1,7 @@
 # Copyright information and license terms for this software can be
 # found in the file LICENSE that is included with the distribution
 
-# Build the EPICS V4 Bundle out of Submodules
+# Build the EPICS V4 C++ Bundle
 
 # These are our main submodules
 MODULES += pvCommonCPP
@@ -35,13 +35,14 @@ RM = $(PERL) -MExtUtils::Command -e rm_f
 
 # Set EPICS_HOST_ARCH if necessary
 ifeq ($(origin EPICS_HOST_ARCH),undefined)
-  EPICS_HOST_ARCH := $(shell $(PERL) $(EPICS_BASE)/startup/EpicsHostArch.pl)
+  export EPICS_HOST_ARCH := $(shell \
+        $(PERL) $(EPICS_BASE)/startup/EpicsHostArch.pl)
 endif
 
 # Name of generated RELEASE files
 RELEASE = RELEASE.$(EPICS_HOST_ARCH).Common
 
-# Include the bundle's RELEASE file if it exists; sets EPICS_BASE
+# If it exists the bundle's RELEASE file sets EPICS_BASE
 ifneq ($(wildcard $(RELEASE)),)
   include $(RELEASE)
 else
@@ -54,6 +55,7 @@ endif
 # Internal build targets
 BUILD_TARGETS = $(MODULES:%=build.%)
 HOST_TARGETS = $(MODULES:%=host.%) host.pvaPy
+DOXYGEN_TARGETS = $(addprefix doxygen.,$(filter-out exampleCPP,$(MODULES)))
 RUNTESTS_TARGETS = $(MODULES:%=runtests.%)
 TAPFILES_TARGETS = $(MODULES:%=tapfiles.%)
 CLEAN_TARGETS = $(MODULES:%=clean.%) clean.pvaPy
@@ -67,6 +69,7 @@ DECONF_TARGETS = $(MODULES:%=deconf.%) $(foreach module, $(MODULES), \
 # Public build targets
 all: $(BUILD_TARGETS)
 host: $(HOST_TARGETS)
+doxygen: $(DOXYGEN_TARGETS)
 python pvaPy: host.pvaPy
 runtests: $(RUNTESTS_TARGETS)
 tapfiles: $(TAPFILES_TARGETS)
@@ -86,6 +89,9 @@ $(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 
 $(HOST_TARGETS): host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
+
+$(DOXYGEN_TARGETS): doxygen.% :
+	cd $* && doxygen
 
 $(RUNTESTS_TARGETS): runtests.% :
 	$(MAKE) -C $* runtests CROSS_COMPILER_TARGET_ARCHS=
