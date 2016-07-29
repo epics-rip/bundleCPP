@@ -1,36 +1,36 @@
 [submodule "pvCommonCPP"]
 	path = pvCommonCPP
 	url = git@github.com:epics-base/pvCommonCPP.git
-	branch = master
+	branch = release/4.2
 [submodule "pvDataCPP"]
 	path = pvDataCPP
 	url = git@github.com:epics-base/pvDataCPP.git
-	branch = master
+	branch = release/6.0
 [submodule "pvAccessCPP"]
 	path = pvAccessCPP
 	url = git@github.com:epics-base/pvAccessCPP.git
-	branch = master
+	branch = release/5.0
 [submodule "normativeTypesCPP"]
 	path = normativeTypesCPP
 	url = git@github.com:epics-base/normativeTypesCPP.git
-	branch = master
+	branch = release/5.1
 [submodule "pvDatabaseCPP"]
 	path = pvDatabaseCPP
 	url = git@github.com:epics-base/pvDatabaseCPP.git
-	branch = master
+	branch = release/4.2
 [submodule "pvaSrv"]
 	path = pvaSrv
 	url = git@github.com:epics-base/pvaSrv.git
-	branch = master
+	branch = release/0.12
 [submodule "pvaClientCPP"]
 	path = pvaClientCPP
 	url = git@github.com:epics-base/pvaClientCPP.git
-	branch = master
+	branch = release/0.12
 [submodule "exampleCPP"]
 	path = exampleCPP
 	url = git@github.com:epics-base/exampleCPP.git
-	branch = master
+	branch = release/4.2
 [submodule "pvaPy"]
 	path = pvaPy
 	url = git@github.com:epics-base/pvaPy.git
-	branch = master
+	branch = release/0.6
