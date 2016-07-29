@@ -25,7 +25,7 @@
 [submodule "pvaClientCPP"]
 	path = pvaClientCPP
 	url = git@github.com:epics-base/pvaClientCPP.git
-	branch = release/0.12
+	branch = release/4.2
 [submodule "exampleCPP"]
 	path = exampleCPP
 	url = git@github.com:epics-base/exampleCPP.git
