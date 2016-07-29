@@ -56,6 +56,8 @@ endif
 BUILD_TARGETS = $(MODULES:%=build.%)
 HOST_TARGETS = $(MODULES:%=host.%) host.pvaPy
 DOXYGEN_TARGETS = $(addprefix doxygen.,$(filter-out exampleCPP,$(MODULES)))
+PYTHON_TARGETS = host.pvaPy
+SPHINX_TARGETS = sphinx.pvaPy
 RUNTESTS_TARGETS = $(MODULES:%=runtests.%)
 TAPFILES_TARGETS = $(MODULES:%=tapfiles.%)
 CLEAN_TARGETS = $(MODULES:%=clean.%) clean.pvaPy
@@ -70,7 +72,8 @@ DECONF_TARGETS = $(MODULES:%=deconf.%) $(foreach module, $(MODULES), \
 all: $(BUILD_TARGETS)
 host: $(HOST_TARGETS)
 doxygen: $(DOXYGEN_TARGETS)
-python pvaPy: host.pvaPy
+python : $(PYTHON_TARGETS)
+sphinx: $(SPHINX_TARGETS)
 runtests: $(RUNTESTS_TARGETS)
 tapfiles: $(TAPFILES_TARGETS)
 clean: $(CLEAN_TARGETS)
@@ -120,10 +123,23 @@ ifneq ($(wildcard $(BOOST_NUMPY)),)
   PVAPY_CONFIG += BOOST_NUM_PY_DIR=$(BOOST_NUMPY)
 endif
 
+ifeq ($(filter sphinx,$(MAKECMDGOALS)),sphinx)
+  PYTHON_VER = $(shell python -c 'import sys; print sys.version[:3]')
+  PYTHON_LIB = $(abspath pvaPy)/lib/python/$(PYTHON_VER)/$(EPICS_HOST_ARCH)
+  ifeq ($(origin PYTHONPATH),undefined)
+    export PYTHONPATH := $(PYTHON_LIB)
+  else
+    export PYTHONPATH := $(PYTHONPATH):$(PYTHON_LIB)
+  endif
+endif
+
 # Special rules for pvaPy
+pvaPy: host.pvaPy
 host.pvaPy: pvaPy/configure/RELEASE.local
 pvaPy/configure/RELEASE.local: host.pvaClientCPP
 	$(MAKE) -C pvaPy configure $(PVAPY_CONFIG)
+sphinx.pvaPy:
+	$(MAKE) -C pvaPy doc
 deconf.pvaPy:
 	$(RM) pvaPy/configure/RELEASE.local pvaPy/configure/CONFIG_SITE.local
 

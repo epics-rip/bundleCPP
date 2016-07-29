@@ -77,6 +77,10 @@ or
 
     make EPICS_BASE=/path/to/epics/base BOOST_NUMPY=/path/to/boost/numpy python
 
+After building pvaPy you can also generate the related reference documentation if you have the Sphinx Python documentation generator installed:
+
+    make sphinx
+
 
 ### Manually Configuring Target Architectures
 
