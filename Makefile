@@ -54,7 +54,7 @@ endif
 
 # Internal build targets
 BUILD_TARGETS = $(MODULES:%=build.%)
-HOST_TARGETS = $(MODULES:%=host.%) host.pvaPy
+HOST_TARGETS = $(MODULES:%=host.%)
 DOXYGEN_TARGETS = $(addprefix doxygen.,$(filter-out exampleCPP,$(MODULES)))
 PYTHON_TARGETS = host.pvaPy
 SPHINX_TARGETS = sphinx.pvaPy
@@ -90,7 +90,7 @@ $(MODULES): % : build.%
 $(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* all
 
-$(HOST_TARGETS): host.% : $(CLEAN_DEP) config
+$(HOST_TARGETS) host.pvaPy: host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
 
 $(DOXYGEN_TARGETS): doxygen.% :
