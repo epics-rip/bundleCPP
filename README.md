@@ -1,6 +1,4 @@
-# EPICS V4 Release 4.X.0 C++ Bundle Read-Me
-
-__This is the README.md file from the bundleCPP master branch.__
+# EPICS V4 Release 4.6.0 C++ Bundle Read-Me
 
 This README provides a guide to building the EPICS V4 C++ modules from this
 packaged release.
