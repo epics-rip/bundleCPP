@@ -9,6 +9,8 @@ submodule for this bundled version of EPICS V4. For patch releases the patch cha
 The Boost header files are now only installed for VxWorks target architectures, since they are only essential for that OS. This prevents clashes with sofware that has been built with a different version of Boost.
 
 
+------
+
 ## pvDataCPP 6.0.0
 
 The main changes since release 5.0.4 are:
@@ -34,24 +36,26 @@ libpvData.so.
 
 ### Headers have been moved into pv directories
 
-E.g. src/property/alarm.h -> src/property/pv/alarm.h
+For example
+
+    src/property/alarm.h -> src/property/pv/alarm.h
 
 This facilitates using some IDEs such as Qt Creator.
 
 ### Requester::message has default implementation
 
 Requester::message is no longer pure virtual. Default implementation sends
-string to std::cerr.
+string to `std::cerr`.
 
 ### Serialization/deserialization helpers added
 
 A helper function, serializeToVector, has been added which serializes a
-Serializable object into a standard vector of UInt8s.
+Serializable object into a standard vector of `UInt8`s.
 
 Similarly a function deserializeFromVector deserializes a standard vector into
 a Deserializable object.
 
-A function deserializeFromBuffer deserializes a ByteBuffer into a
+A function deserializeFromBuffer deserializes a `ByteBuffer` into a
 Deserializable object.
 
 ### Field name validation performed
@@ -67,6 +71,8 @@ underscores and intial numbers are invalid, i.e. names must be of the form
 Includes cross-compiling MinGW on Linux.
 
 
+------
+
 ## pvAccessCPP 5.0.0
 
 * Remote channel destroy support
@@ -81,6 +87,8 @@ Includes cross-compiling MinGW on Linux.
 * CA provider destruction fixed
 * Replaced LGPL wildcard matcher with simplistic EPICS version
 
+
+------
 
 ## normativeTypesCPP 5.1.0
 
@@ -122,6 +130,8 @@ such as Qt Creator.
 * In PvaClientMultiChannel checkConnected() now throws an exception if connect fails.
 
 
+------
+
 ## pvaSrv 0.12.0
 
 * Major clean-up wrt returned structures on gets
@@ -131,6 +141,8 @@ such as Qt Creator.
 * Fix issues #3, #5
 * Changes in Jenkins jobs (@CloudBees)
 
+
+------
 
 ## pvDatabaseCPP 4.2.0
 
@@ -142,6 +154,8 @@ The test is now a regression test the can be ran via
 
      make runtests
 
+
+------
 
 ## exampleCPP 4.2.0
 
@@ -159,6 +173,8 @@ The test is now a regression test the can be ran via
   * exampleClient
   * test
 
+
+------
 
 ## pvaPy 0.6
 
