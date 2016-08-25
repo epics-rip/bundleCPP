@@ -4,7 +4,7 @@ This document contains the Release Notes entries from each individual C++
 submodule for this bundled version of EPICS V4. For future patch releases any notes about patch changes will supplement the note entries from the original release.
 
 
-## pvCommonCPP 4.2.0
+## pvCommonCPP 4.2.2
 
 The Boost header files are now only installed for VxWorks target architectures, since they are only essential for that OS. This prevents clashes with sofware that has been built with a different version of Boost.
 
