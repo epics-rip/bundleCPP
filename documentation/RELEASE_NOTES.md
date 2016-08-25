@@ -1,7 +1,7 @@
-# EPICS V4 Release 4.6.0 C++ Bundle Release Notes
+# EPICS V4 Release 4.6.0-rc1 C++ Bundle Release Notes
 
-This document summarizes the Release Notes entries from each individual C++
-submodule for this bundled version of EPICS V4. For patch releases the patch changes will appear in addition to the original release notes.
+This document contains the Release Notes entries from each individual C++
+submodule for this bundled version of EPICS V4. For future patch releases any notes about patch changes will supplement the note entries from the original release.
 
 
 ## pvCommonCPP 4.2.0
