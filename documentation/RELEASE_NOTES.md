@@ -144,15 +144,15 @@ such as Qt Creator.
 
 ------
 
-## pvDatabaseCPP 4.2.0
+## pvDatabaseCPP 4.2.1
 
 * The examples are moved to exampleCPP
 * Support for channelRPC is now available.
 * removeRecord and traceRecord are now available.
 
-The test is now a regression test the can be ran via
+The test is now a regression test that can be run using
 
-     make runtests
+    make runtests
 
 
 ------
