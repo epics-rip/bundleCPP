@@ -123,11 +123,11 @@ such as Qt Creator.
 
 ------
 
-## pvaClientCPP 0.12.0
+## pvaClientCPP 4.2.1
 
 * The examples are moved to exampleCPP.
 * Support for channelRPC is now available.
-* In PvaClientMultiChannel checkConnected() now throws an exception if connect fails.
+* In PvaClientMultiChannel `checkConnected()` now throws an exception if connect fails.
 
 
 ------
