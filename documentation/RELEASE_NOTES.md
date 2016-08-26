@@ -176,7 +176,7 @@ The test is now a regression test that can be run using
 
 ------
 
-## pvaPy 0.6
+## pvaPy 0.6.1
 
 - added support for channel putGet() and getPut() operations
 - introduced PvObject support for field path notation (e.g, 'x.y.z')
@@ -184,4 +184,7 @@ The test is now a regression test that can be run using
 - new constructor for PvObject allows optional value dictionary
 - added PvObject support for retrieving numeric scalar arrays as
   read-only numpy arrays (requires compiling with Boost.NumPy)
+- added ability to specify PV request in RPC client code
+- fixed PvObject type ID issues
+
 
