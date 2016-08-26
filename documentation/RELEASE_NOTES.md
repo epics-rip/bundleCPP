@@ -90,7 +90,7 @@ Includes cross-compiling MinGW on Linux.
 
 ------
 
-## normativeTypesCPP 5.1.0
+## normativeTypesCPP 5.1.1
 
 The main changes since release 5.0 are:
 
