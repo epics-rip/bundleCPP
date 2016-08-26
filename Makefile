@@ -135,7 +135,7 @@ endif
 
 # Special rules for pvaPy
 pvaPy: host.pvaPy
-host.pvaPy: pvaPy/configure/RELEASE.local
+config.pvaPy: pvaPy/configure/RELEASE.local
 pvaPy/configure/RELEASE.local: host.pvaClientCPP
 	$(MAKE) -C pvaPy configure $(PVAPY_CONFIG)
 sphinx.pvaPy:
