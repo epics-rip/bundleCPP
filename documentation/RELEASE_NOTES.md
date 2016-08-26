@@ -132,13 +132,13 @@ such as Qt Creator.
 
 ------
 
-## pvaSrv 0.12.0
+## pvaSrv 0.12.1
 
-* Major clean-up wrt returned structures on gets
-  and monitors
+* Major clean-up wrt returned structures on gets and monitors
 * Treat enum as uint16 (not int32)
 * Security plugin improvements
 * Fix issues #3, #5
+* SHRLIB_VERSION can be overridden
 * Changes in Jenkins jobs (@CloudBees)
 
 
