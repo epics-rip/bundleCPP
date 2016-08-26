@@ -157,7 +157,7 @@ The test is now a regression test that can be run using
 
 ------
 
-## exampleCPP 4.2.0
+## exampleCPP 4.2.1
 
 * HelloWorld has been renamed helloRPC.
 
