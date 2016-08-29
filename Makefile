@@ -87,10 +87,10 @@ deconf: $(DECONF_TARGETS) deconf.pvaPy
 # Generic build rules
 $(MODULES): % : build.%
 
-$(BUILD_TARGETS): build.% : $(CLEAN_DEP) config.%
+$(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* all
 
-$(HOST_TARGETS) host.pvaPy: host.% : $(CLEAN_DEP) config.%
+$(HOST_TARGETS) host.pvaPy: host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
 
 $(DOXYGEN_TARGETS): doxygen.% :
