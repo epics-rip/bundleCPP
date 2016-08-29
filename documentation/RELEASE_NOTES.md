@@ -192,3 +192,10 @@ The test is now a regression test that can be run using
   unnecessary monitor polling when monitor queue is full has been eliminated
 
 
+------
+
+## bundleCPP 4.6.0-rc1
+
+* New module created for bundling the other EPICS V4 C++ modules.
+* Makefile supports simple configuration and parallel builds.
+
