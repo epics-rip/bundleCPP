@@ -176,7 +176,7 @@ The test is now a regression test that can be run using
 
 ------
 
-## pvaPy 0.6.1
+## pvaPy 0.6.2
 
 - added support for channel putGet() and getPut() operations
 - introduced PvObject support for field path notation (e.g, 'x.y.z')
@@ -186,5 +186,9 @@ The test is now a regression test that can be run using
   read-only numpy arrays (requires compiling with Boost.NumPy)
 - added ability to specify PV request in RPC client code
 - fixed PvObject type ID issues
+- reworked monitor code to allow two processing modes: immediate processing
+  and processing in a separate thread (requires copying/queueing monitor data);
+  the processing thread mode now utilizes monitor requester callbacks, and
+  unnecessary monitor polling when monitor queue is full has been eliminated
 
 
