@@ -11,7 +11,7 @@ The Boost header files are now only installed for VxWorks target architectures, 
 
 ------
 
-## pvDataCPP 6.0.0
+## pvDataCPP 6.0.1
 
 The main changes since release 5.0.4 are:
 
