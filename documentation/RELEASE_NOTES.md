@@ -90,7 +90,7 @@ Includes cross-compiling MinGW on Linux.
 
 ------
 
-## normativeTypesCPP 5.1.1
+## normativeTypesCPP 5.1.2
 
 The main changes since release 5.0 are:
 
@@ -99,6 +99,8 @@ The main changes since release 5.0 are:
 * Missing is_a implementations added
 * NTAttribute::addTags() is now non-virtual
 * New license file replaces LICENSE and COPYRIGHT
+* NTUnionBuilder: Add missing value() function
+* Updated document: Now document all Normative Types
 
 ### Shared library version added
 
