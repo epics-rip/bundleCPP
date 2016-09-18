@@ -1,4 +1,4 @@
-# EPICS V4 Release 4.6.0-rc1 C++ Bundle Release Notes
+# EPICS V4 Release 4.6.0 C++ Bundle Release Notes
 
 This document contains the Release Notes entries from each individual C++
 submodule for this bundled version of EPICS V4. For future patch releases any notes about patch changes will supplement the note entries from the original release.
@@ -199,7 +199,7 @@ release.
 
 ------
 
-## bundleCPP 4.6.0-rc1
+## bundleCPP 4.6.0
 
 * New module created for bundling the other EPICS V4 C++ modules.
 * Makefile supports simple configuration and parallel builds.
