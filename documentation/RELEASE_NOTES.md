@@ -159,7 +159,7 @@ The test is now a regression test that can be run using
 
 ------
 
-## exampleCPP 4.2.1
+## exampleCPP 4.2.2
 
 * HelloWorld has been renamed helloRPC.
 
@@ -175,6 +175,9 @@ The test is now a regression test that can be run using
   * exampleClient
   * test
 
+* The pvDatabaseRPC example sub-module generates build warnings on Windows
+related to name decoration. These issues will be fixed in an upcoming patch
+release.
 
 ------
 
