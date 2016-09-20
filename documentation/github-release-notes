@@ -1,0 +1,13 @@
+EPICS V4 C++ Package
+
+This release of the EPICS V4 C++ modules contains various incremental improvements
+in each module. The set of sample applications in the exampleCPP module has been
+significantly updated, some having been moved from the pvDatabaseCPP module. The
+python API now supports the retrieval of numeric scalar arrays into read-only
+numpy arrays. More information is available in the bundle's
+[Release Notes document](https://github.com/epics-base/bundleCPP/blob/release/4.6.0/documentation/RELEASE_NOTES.md).
+
+Note that the "Source code" download files below only contain the top-level
+project without all of the sub-modules. The EPICS-CPP-4.6.0 files contain the
+full module sources.
+
