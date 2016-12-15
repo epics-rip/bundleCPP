@@ -1,31 +1,74 @@
-# EPICS V4 Release 4.X.0 C++ Bundle Release Notes
+# EPICS V4 Release 4.x.0 C++ Bundle Release Notes
 
-__This is the version of the file from the bundleCPP master branch.__
-
-This document summarizes the Release Notes entries from each individual C++
-submodule for this bundled version of EPICS V4. For patch releases the patch changes will appear above the original release notes.
-
-
-## pvCommonCPP
+This document contains the Release Notes entries from each individual C++
+submodule for this bundled version of EPICS V4.
+For future patch releases any notes about patch changes will supplement the note entries from the original release.
 
 
-## pvDataCPP
+## pvCommonCPP x.y.z
+
+...
+
+------
+
+## pvDataCPP x.y.z
+
+...
 
 
-## pvAccessCPP
+------
+
+## pvAccessCPP x.y.z
+
+...
 
 
-## normativeTypesCPP
+------
+
+## normativeTypesCPP x.y.z
+
+...
 
 
-## pvaClientCPP
+
+------
+
+## pvaClientCPP x.y.z
+
+...
 
 
-## pvaSrv
+------
+
+## pvaSrv x.y.z
+
+...
 
 
-## pvDatabaseCPP
+------
+
+## pvDatabaseCPP x.y.z
+
+...
 
 
-## exampleCPP
+------
+
+## exampleCPP x.y.z
+
+...
+
+
+------
+
+## pvaPy x.y.z
+
+...
+
+
+------
+
+## bundleCPP 4.x.0
+
+...
 
