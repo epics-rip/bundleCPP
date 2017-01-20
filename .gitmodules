@@ -1,36 +1,36 @@
 [submodule "pvCommonCPP"]
 	path = pvCommonCPP
-	url = git@github.com:epics-base/pvCommonCPP.git
+	url = https://github.com/epics-base/pvCommonCPP
 	branch = master
 [submodule "pvDataCPP"]
 	path = pvDataCPP
-	url = git@github.com:epics-base/pvDataCPP.git
+	url = https://github.com/epics-base/pvDataCPP
 	branch = master
 [submodule "pvAccessCPP"]
 	path = pvAccessCPP
-	url = git@github.com:epics-base/pvAccessCPP.git
+	url = https://github.com/epics-base/pvAccessCPP
 	branch = master
 [submodule "normativeTypesCPP"]
 	path = normativeTypesCPP
-	url = git@github.com:epics-base/normativeTypesCPP.git
+	url = https://github.com/epics-base/normativeTypesCPP
 	branch = master
 [submodule "pvDatabaseCPP"]
 	path = pvDatabaseCPP
-	url = git@github.com:epics-base/pvDatabaseCPP.git
+	url = https://github.com/epics-base/pvDatabaseCPP
 	branch = master
 [submodule "pvaSrv"]
 	path = pvaSrv
-	url = git@github.com:epics-base/pvaSrv.git
+	url = https://github.com/epics-base/pvaSrv
 	branch = master
 [submodule "pvaClientCPP"]
 	path = pvaClientCPP
-	url = git@github.com:epics-base/pvaClientCPP.git
+	url = https://github.com/epics-base/pvaClientCPP
 	branch = master
 [submodule "exampleCPP"]
 	path = exampleCPP
-	url = git@github.com:epics-base/exampleCPP.git
+	url = https://github.com/epics-base/exampleCPP
 	branch = master
 [submodule "pvaPy"]
 	path = pvaPy
-	url = git@github.com:epics-base/pvaPy.git
+	url = https://github.com/epics-base/pvaPy
 	branch = master
