@@ -20,7 +20,6 @@ normativeTypesCPP_DEPENDS_ON = pvDataCPP
       pvAccessCPP_DEPENDS_ON = pvDataCPP
      pvaClientCPP_DEPENDS_ON = pvAccessCPP normativeTypesCPP
            pvaSrv_DEPENDS_ON = pvAccessCPP
-            pvaPy_DEPENDS_ON = pvaClientCPP
     pvDatabaseCPP_DEPENDS_ON = pvAccessCPP
        exampleCPP_DEPENDS_ON = pvDatabaseCPP pvaSrv pvaClientCPP
 
@@ -56,7 +55,7 @@ endif
 BUILD_TARGETS = $(MODULES:%=build.%)
 HOST_TARGETS = $(MODULES:%=host.%)
 DOXYGEN_TARGETS = $(addprefix doxygen.,$(filter-out exampleCPP,$(MODULES)))
-PYTHON_TARGETS = host.pvaPy
+PYTHON_TARGETS = config.pvaPy host.pvaPy
 SPHINX_TARGETS = sphinx.pvaPy
 RUNTESTS_TARGETS = $(MODULES:%=runtests.%)
 TAPFILES_TARGETS = $(MODULES:%=tapfiles.%)
@@ -90,7 +89,7 @@ $(MODULES): % : build.%
 $(BUILD_TARGETS): build.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* all
 
-$(HOST_TARGETS) host.pvaPy: host.% : $(CLEAN_DEP) config
+$(HOST_TARGETS): host.% : $(CLEAN_DEP) config
 	$(MAKE) -C $* $(EPICS_HOST_ARCH)
 
 $(DOXYGEN_TARGETS): doxygen.% :
@@ -134,10 +133,12 @@ ifeq ($(filter sphinx,$(MAKECMDGOALS)),sphinx)
 endif
 
 # Special rules for pvaPy
-pvaPy: host.pvaPy
-config.pvaPy: pvaPy/configure/RELEASE.local
-pvaPy/configure/RELEASE.local: host.pvaClientCPP
+pvaPy: config.pvaPy host.pvaPy
+config.pvaPy: host.pvaClientCPP pvaPy/configure/RELEASE.local
+pvaPy/configure/RELEASE.local:
 	$(MAKE) -C pvaPy configure $(PVAPY_CONFIG)
+host.pvaPy: pvaPy/configure/RELEASE.local
+	$(MAKE) -C pvaPy $(EPICS_HOST_ARCH)
 sphinx.pvaPy:
 	$(MAKE) -C pvaPy doc
 deconf.pvaPy:
@@ -157,11 +158,9 @@ define MODULE_DEPS_template
   $(1).$(2): $$(foreach dep, $$($(2)_DEPENDS_ON), \
       $$(addprefix $(1).,$$(dep))) $(2)/configure/$(RELEASE)
 endef
-# Dependencies for build.%
+# Dependencies for build.% and host.%
 $(foreach module, $(MODULES), \
-    $(eval $(call MODULE_DEPS_template,build,$(module))))
-# Dependencies for host.%
-$(foreach module, $(MODULES) pvaPy, \
+    $(eval $(call MODULE_DEPS_template,build,$(module))) \
     $(eval $(call MODULE_DEPS_template,host,$(module))))
 
 # GNUmake hints
