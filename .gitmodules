@@ -18,10 +18,6 @@
 	path = pvDatabaseCPP
 	url = https://github.com/epics-base/pvDatabaseCPP
 	branch = master
-[submodule "pvaSrv"]
-	path = pvaSrv
-	url = https://github.com/epics-base/pvaSrv
-	branch = master
 [submodule "pvaClientCPP"]
 	path = pvaClientCPP
 	url = https://github.com/epics-base/pvaClientCPP
@@ -34,3 +30,6 @@
 	path = pvaPy
 	url = https://github.com/epics-base/pvaPy
 	branch = master
+[submodule "pva2pva"]
+	path = pva2pva
+	url = https://github.com/epics-base/pva2pva
