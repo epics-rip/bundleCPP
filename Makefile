@@ -13,6 +13,7 @@ MODULES += pva2pva
 MODULES += pvDatabaseCPP
 MODULES += exampleCPP
 # pvaPy must not appear in MODULES, it's special
+TOP_MODULES = $(MODULES) pvaPy
 
 # Dependencies between modules, also used for RELEASE files
         pvDataCPP_DEPENDS_ON = pvCommonCPP
@@ -58,13 +59,17 @@ PYTHON_TARGETS = config.pvaPy host.pvaPy
 SPHINX_TARGETS = sphinx.pvaPy
 RUNTESTS_TARGETS = $(MODULES:%=runtests.%)
 TAPFILES_TARGETS = $(MODULES:%=tapfiles.%)
-CLEAN_TARGETS = $(MODULES:%=clean.%) clean.pvaPy
-DISTCLEAN_TARGETS = $(MODULES:%=distclean.%) distclean.pvaPy
-CLEAN_DEP = $(filter clean distclean,$(MAKECMDGOALS))
 CONFIG_TARGETS = $(MODULES:%=config.%) $(foreach module, $(MODULES), \
     $(foreach top, $($(module)_CONTAINS_TOPS), config.$(module)/$(top)))
 DECONF_TARGETS = $(MODULES:%=deconf.%) $(foreach module, $(MODULES), \
     $(foreach top, $($(module)_CONTAINS_TOPS), deconf.$(module)/$(top)))
+
+# Don't try cleaning unconfigured modules
+CONFIGURED_MODULES = $(patsubst %/configure/$(RELEASE),%,\
+    $(wildcard $(TOP_MODULES:%=%/configure/$(RELEASE))))
+CLEAN_TARGETS = $(CONFIGURED_MODULES:%=clean.%)
+DISTCLEAN_TARGETS = $(CONFIGURED_MODULES:%=distclean.%)
+CLEAN_DEP = $(filter clean distclean,$(MAKECMDGOALS))
 
 # Public build targets
 all: $(BUILD_TARGETS)
@@ -79,7 +84,7 @@ distclean: $(DISTCLEAN_TARGETS) deconf
 rebuild: clean
 	$(MAKE) all
 config: $(CONFIG_TARGETS)
-deconf: $(DECONF_TARGETS) deconf.pvaPy
+deconf: $(DECONF_TARGETS) deconf.pvaPy | $(DISTCLEAN_TARGETS)
 	$(RM) $(RELEASE)
 
 # Generic build rules
@@ -133,7 +138,8 @@ endif
 
 # Special rules for pvaPy
 pvaPy: config.pvaPy host.pvaPy
-config.pvaPy: host.pvaClientCPP pvaPy/configure/RELEASE.local
+config.pvaPy: pvaPy/configure/RELEASE.local \
+    host.pvaClientCPP host.pvDatabaseCPP
 pvaPy/configure/RELEASE.local:
 	$(MAKE) -C pvaPy configure $(PVAPY_CONFIG)
 host.pvaPy: pvaPy/configure/RELEASE.local
