@@ -63,6 +63,10 @@ This bundle includes a copy of the pvaPy python module, but the build commands a
 
     make python
 
+or for Python 3:
+
+    make python PYTHON_VERSION=3
+
 If you only want to build EPICS V4 for the python API, you can avoid compiling some of the modules in the first step above by just running
 
     make EPICS_BASE=/path/to/epics/base python
@@ -74,6 +78,8 @@ If you use the Python library NumPy and have the Boost.NumPy package installed, 
 or
 
     make EPICS_BASE=/path/to/epics/base BOOST_NUMPY=/path/to/boost/numpy python
+
+The top-level build system understands the variable BOOST_ROOT if you need to configure pyaPy to build against a custom Boost installation; see the pvaPy/README.md file for more information about using this.
 
 After building pvaPy you can also generate the related reference documentation if you have the Sphinx Python documentation generator installed:
 
