@@ -22,10 +22,6 @@
 	path = pvaClientCPP
 	url = https://github.com/epics-base/pvaClientCPP
 	branch = master
-[submodule "exampleCPP"]
-	path = exampleCPP
-	url = https://github.com/epics-base/exampleCPP
-	branch = master
 [submodule "pvaPy"]
 	path = pvaPy
 	url = https://github.com/epics-base/pvaPy

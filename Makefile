@@ -11,7 +11,6 @@ MODULES += pvAccessCPP
 MODULES += pvaClientCPP
 MODULES += pva2pva
 MODULES += pvDatabaseCPP
-MODULES += exampleCPP
 # pvaPy must not appear in MODULES, it's special
 TOP_MODULES = $(MODULES) pvaPy
 
@@ -22,11 +21,9 @@ normativeTypesCPP_DEPENDS_ON = pvDataCPP
      pvaClientCPP_DEPENDS_ON = pvAccessCPP normativeTypesCPP
           pva2pva_DEPENDS_ON = pvAccessCPP
     pvDatabaseCPP_DEPENDS_ON = pvAccessCPP
-       exampleCPP_DEPENDS_ON = pvDatabaseCPP pva2pva pvaClientCPP
 
 # Embedded tops, which also need RELEASE files
-exampleCPP_CONTAINS_TOPS := database exampleClient exampleLink powerSupply
-exampleCPP_CONTAINS_TOPS += helloPutGet helloRPC pvDatabaseRPC arrayPerformance
+# -- None in this release --
 
 # Build tools
 PERL = perl

@@ -53,7 +53,7 @@ It is only necessary to give the `EPICS_BASE=...` argument the first time you ru
 Some additional make commands that may be useful are:
 
 * `make host` - This only builds for the host operating system, avoiding any cross-compiled architectures that the EPICS Base installation might be configured for. See the Manual Configuration section below for an alternative to using this target though.
-* `make doxygen` - Run the `doxygen` tool on all sub-modules that use this to generate reference documents. Excludes the pvaPy and exampleCPP modules.
+* `make doxygen` - Run the `doxygen` tool on all sub-modules that use this to generate reference documents. Excludes the pvaPy module which uses Sphinx.
 * `make runtests` - This executes all of the self-test programs that are delivered in the EPICS V4 C++ modules.
 * `make clean` - Delete intermediate files which are not required after the build has finished for all architectures built on this host. This may be useful on systems where disk space is tight.
 * `make distclean` - Delete all generated files for all architectures, including installed headers, binaries and library files. This also removes the file that saves the location of EPICS Base, so after running this the next build must specify the `EPICS_BASE=...` argument again.
