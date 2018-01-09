@@ -1,6 +1,4 @@
-# EPICS V4 Release 4.X.0 C++ Bundle Read-Me
-
-__This is the README.md file from the bundleCPP master branch.__
+# EPICS V4 Release 4.7.0 C++ Bundle Read-Me
 
 This README provides a guide to building the EPICS V4 C++ modules from this
 packaged release.
@@ -16,7 +14,7 @@ for the specific set of target architectures needed.
 
 The bundle requires recent versions of following software:
 
-1. EPICS Base (3.14.12.x or 3.15.x) already built
+1. EPICS Base (3.15.x or 3.16.x) already built
 2. Standard development tools as required for EPICS Base
 3. Doxygen (optional, for generating documentation)
 
@@ -117,6 +115,5 @@ For information about the individual modules, consult the documentation that com
 * Other files in the documentation directory
 
 Additional information about EPICS V4 can be found on the
-[EPICS V4 Website](http://epics-pvdata.sourceforge.net/)
-and its
+[EPICS V4 Website](http://epics-pvdata.sourceforge.net/) and its
 [Documentation page](http://epics-pvdata.sourceforge.net/literature.html)
