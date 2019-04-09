@@ -4,7 +4,6 @@
 # Build the EPICS V4 C++ Bundle
 
 # These are our main submodules
-MODULES += pvCommonCPP
 MODULES += pvDataCPP
 MODULES += normativeTypesCPP
 MODULES += pvAccessCPP
@@ -16,7 +15,6 @@ MODULES += exampleCPP
 TOP_MODULES = $(MODULES) pvaPy
 
 # Dependencies between modules, also used for RELEASE files
-        pvDataCPP_DEPENDS_ON = pvCommonCPP
 normativeTypesCPP_DEPENDS_ON = pvDataCPP
       pvAccessCPP_DEPENDS_ON = pvDataCPP
      pvaClientCPP_DEPENDS_ON = pvAccessCPP normativeTypesCPP

@@ -16,7 +16,7 @@ for the specific set of target architectures needed.
 
 The bundle requires recent versions of following software:
 
-1. EPICS Base (3.14.12.x or 3.15.x) already built
+1. EPICS Base (3.15.x or 3.16.x) already built
 2. Standard development tools as required for EPICS Base
 3. Doxygen (optional, for generating documentation)
 
@@ -94,24 +94,15 @@ In many cases the automated configuration steps described above will be
 sufficient to build the standard C++ modules. However in some circumstances a
 manual configuration step may be needed first to control which embedded
 cross-compiled target architectures get built. If your copy of EPICS Base is
-configured to also compile for unsupported VxWorks targets (i.e. any version
-earlier than VxWorks 6.8) you will have to exclude those targets from the build.
-To do that, create a file called `CONFIG_SITE.local` in the top-level bundle
-directory that overrides the `CROSS_COMPILER_TARGET_ARCHS` variable as
-appropriate.
-
-For example
+configured to also compile for VxWorks targets (which are no longer supported
+by this bundle) you will have to exclude them from these module builds.
+To do that, create a file named `CONFIG_SITE.local` in the top-level bundle
+directory that overrides the `CROSS_COMPILER_TARGET_ARCHS` variable to remove
+the VxWorks targets, like this:
 
     # CONFIG_SITE.local
-    CROSS_COMPILER_TARGET_ARCHS = vxWorks-ppc32
-
-explicitly configures the build for only the vxWorks-ppc32 target architecture (in addition to the host architecture), while
-
-    # CONFIG_SITE.local
-    CROSS_COMPILER_TARGET_ARCHS = \
-        $(filter-out vxWorks-68040,$(CROSS_COMPILER_TARGET_ARCHS))
-
-removes just the vxWorks-68040 cross-target from the set provided by EPICS Base.
+    CROSS_COMPILER_TARGET_ARCHS := \
+        $(filter-out vxWorks-%,$(CROSS_COMPILER_TARGET_ARCHS))
 
 
 ## Further Information
