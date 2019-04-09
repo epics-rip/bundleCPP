@@ -1,12 +1,15 @@
 # EPICS V4 Release 4.X.0 C++ Bundle Read-Me
 
-__This is the README.md file from the bundleCPP master branch.__
+This is the README.md file from the EPICS bundleCPP __master__ branch.
 
-This README provides a guide to building the EPICS V4 C++ modules from this
-packaged release.
+__The git submodule versions that this branch refers to are probably out of date. We have not been releasing this module as frequently as new releases of EPICS 7, which also contains these same modules. If the bundleCPP project's [release files](https://github.com/epics-base/bundleCPP/releases) are too old for you, a `git clone --recursive` of this branch probably won't give you what you want either. Doing `git submodule update --remote` should update the submodules to their latest available versions, but we can't promise that the result will always build or work properly.__
 
-Authors:
- * David Hickin, Diamond
+
+This README provides a guide to building the EPICS V4 C++ modules from a
+packaged release of this project.
+
+Current Authors:
+
  * Andrew Johnson, Argonne National Laboratory
 
 ## Prerequisites

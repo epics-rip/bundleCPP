@@ -40,7 +40,7 @@ The pvCommonCPP module has been removed. As a result this bundle will no longer 
 
 ------
 
-## pvaSrv x.y.z
+## pva2pva x.y.z
 
 ...
 
