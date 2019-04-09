@@ -125,6 +125,12 @@ PVAPY_CONFIG += EPICS4_DIR=$(abspath .)
 ifneq ($(wildcard $(BOOST_NUMPY)),)
   PVAPY_CONFIG += BOOST_NUM_PY_DIR=$(BOOST_NUMPY)
 endif
+ifneq ($(wildcard $(BOOST_ROOT)),)
+  PVAPY_CONFIG += BOOST_ROOT=$(BOOST_ROOT)
+endif
+ifneq ($(PYTHON_VERSION),)
+  PVAPY_CONFIG += PYTHON_VERSION=$(PYTHON_VERSION)
+endif
 
 ifeq ($(filter sphinx,$(MAKECMDGOALS)),sphinx)
   PYTHON_VER = $(shell python -c 'import sys; print sys.version[:3]')
